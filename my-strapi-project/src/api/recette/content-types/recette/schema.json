@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recettes",
+  "info": {
+    "singularName": "recette",
+    "pluralName": "recettes",
+    "displayName": "recettes"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titre": {
+      "type": "string"
+    },
+    "temps_de_preparation": {
+      "type": "integer"
+    },
+    "difficulte": {
+      "type": "integer"
+    },
+    "budget": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

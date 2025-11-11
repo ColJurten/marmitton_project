@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# IDE and Editor
+.vscode/
+.idea/
+*.sublime-*
+*.swp
+*.swo
+*~
+
+# Operating System
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Strapi
+
+.cache/
+build/
+dist/
+
+.strapi-updater.json
+exports/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Build outputs
+.next/
+out/
+.nuxt/
+.output/
+
+# Uploads and Media
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Miscellaneous
+.temp/
+temp/
+tmp/
