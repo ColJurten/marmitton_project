@@ -1,10 +1,11 @@
 import express from 'express'
 import { Router } from 'express'
 import { db } from '../index.js'
+import { checkToken } from '../middleware/checkToken.js'
 
 export const recipesRouter = Router()
 
-recipesRouter.use(express.json())
+recipesRouter.use(express.json(), checkToken)
 
 // GET all recipes
 recipesRouter.get('/', async (req, res) => {

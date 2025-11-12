@@ -1,6 +1,6 @@
-@url = http://localhost:1337
+@url = http://localhost:3000
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYyNzc4MDg2LCJleHAiOjE3NjUzNzAwODZ9.rlx3NXGdRJ1QeXs_6RcPLhuP7gTUD5oRetHiy7Z6or0
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJmb29iYXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3NjI5NTM1NTAsImV4cCI6MTc2Mjk1NzE1MH0.E8ttirNCvKzfuzAt5vL-bQDbHawXz10Mc1j1-HD2X10
 
 
 ### Fetch recipe data from external API (HTML response to parse)
@@ -39,7 +39,7 @@ Content-Type: application/json
 ### Create new recette in Express API
 POST {{url}}/api/recipes
 Content-Type: application/json
-# Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}
 
 {
   "titre": "Poêlée de patate douce et feta",
@@ -54,29 +54,29 @@ Content-Type: application/json
 ### Get all recipes to verify creation
 GET {{url}}/api/recipes
 Accept: application/json
-# Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}
 
 ###
 
 ### Get specific recette by ID (replace {id} with actual ID)
 GET {{url}}/api/recipes/1
 Accept: application/json
-# Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}
 
 
 ### Update specific recette by ID (replace {id} with actual ID)
-PUT {{url}}/api/recipes/{id}
+PUT {{url}}/api/recipes/1
 Content-Type: application/json
-# Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}
 
 {
   "data": {
-    "description": "Updated description for the recipe."
+    "description": "Mise a jour de la description de la recette."
   }
 }
 
 
 ### Delete specific recette by ID (replace {id} with actual ID)
-DELETE {{url}}/api/recipes/{id}
+DELETE {{url}}/api/recipes/1
 Accept: application/json
-# Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}
