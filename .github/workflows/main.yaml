@@ -31,7 +31,7 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         context: ./express_API
-        file: ./express_API/dockerfile
+        file: ./express_API/Dockerfile
         push: true
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
