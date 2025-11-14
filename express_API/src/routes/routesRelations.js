@@ -11,28 +11,38 @@ recipeIngredientsRouter.use(express.json(), checkToken)
 recipeIngredientsRouter.get('/recipe/:recipeId/ingredients', async (req, res) => {
   const { recipeId } = req.params
   
-  const ingredients = await db.all(`
-    SELECT i.id, i.nom, ri.id as recipe_ingredient_id
-    FROM ingredients i
-    INNER JOIN recipe_ingredients ri ON i.id = ri.ingredient_id
-    WHERE ri.recette_id = ?
-  `, [recipeId])
-  
-  res.json(ingredients)
+  try {
+    const ingredients = await db.all(`
+      SELECT i.id, i.nom, ri.id as recipe_ingredient_id
+      FROM ingredients i
+      INNER JOIN recipe_ingredients ri ON i.id = ri.ingredient_id
+      WHERE ri.recette_id = ?
+    `, [recipeId])
+    
+    res.json(ingredients)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Internal server error' })
+  }
 })
 
 // GET all recettes pour un ingredient specifique
 recipeIngredientsRouter.get('/ingredient/:ingredientId/recipes', async (req, res) => {
   const { ingredientId } = req.params
   
-  const recipes = await db.all(`
-    SELECT r.id, r.titre, r.temps_de_preparation, r.difficulte, r.budget, r.description
-    FROM recipes r
-    INNER JOIN recipe_ingredients ri ON r.id = ri.recette_id
-    WHERE ri.ingredient_id = ?
-  `, [ingredientId])
-  
-  res.json(recipes)
+  try {
+    const recipes = await db.all(`
+      SELECT r.id, r.titre, r.temps_de_preparation, r.difficulte, r.budget, r.description
+      FROM recipes r
+      INNER JOIN recipe_ingredients ri ON r.id = ri.recette_id
+      WHERE ri.ingredient_id = ?
+    `, [ingredientId])
+    
+    res.json(recipes)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Internal server error' })
+  }
 })
 
 // POST add an ingredient to a recipe
@@ -97,22 +107,36 @@ recipeIngredientsRouter.post('/recipe/:recipeId/ingredients', async (req, res) =
 recipeIngredientsRouter.delete('/recipe/:recipeId/ingredient/:ingredientId', async (req, res) => {
   const { recipeId, ingredientId } = req.params
   
-  await db.run(`
-    DELETE FROM recipe_ingredients
-    WHERE recette_id = ? AND ingredient_id = ?
-  `, [recipeId, ingredientId])
-  
-  res.status(204).end()
+  try {
+    const result = await db.run(`
+      DELETE FROM recipe_ingredients
+      WHERE recette_id = ? AND ingredient_id = ?
+    `, [recipeId, ingredientId])
+    
+    if (result.changes === 0) {
+      return res.status(404).json({ error: 'Relationship not found' })
+    }
+    
+    res.status(204).end()
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Internal server error' })
+  }
 })
 
 // DELETE remove all ingredients from a recipe
 recipeIngredientsRouter.delete('/recipe/:recipeId/ingredients', async (req, res) => {
   const { recipeId } = req.params
   
-  await db.run(`
-    DELETE FROM recipe_ingredients
-    WHERE recette_id = ?
-  `, [recipeId])
-  
-  res.status(204).end()
+  try {
+    await db.run(`
+      DELETE FROM recipe_ingredients
+      WHERE recette_id = ?
+    `, [recipeId])
+    
+    res.status(204).end()
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Internal server error' })
+  }
 })  

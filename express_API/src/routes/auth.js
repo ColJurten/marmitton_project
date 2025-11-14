@@ -12,9 +12,8 @@ authRouter.post("/local/register", async (req, res) => {
     return res.status(400).json({ error: "Missing username, email or password" });
   }
 
-  const hashedPassword = await hash(password, 10);
-  
   try {
+    const hashedPassword = await hash(password, 10);
     await db.run("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", [username, email, hashedPassword]);
     const user = await db.get("SELECT * FROM users WHERE email = ?", [email]);
     const token = jwt.sign({ id: user.id, email: user.email }, process.env.SECRET, { expiresIn: '1h' });
